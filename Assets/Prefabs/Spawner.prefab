@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8188044013399761041}
   - component: {fileID: 5101001868321756644}
+  - component: {fileID: -7512073488256311677}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -44,3 +45,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-7512073488256311677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 591437501512889421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4caa6af63608e674a84743799fa70902, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 1321578125928574589, guid: 0f0ab51f94675ba4fa937c62a774f2bf, type: 3}
+  enemyAmount: 0
+  maxEnemyAmount: 10
+  isCreating: 0

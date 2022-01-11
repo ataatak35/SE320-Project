@@ -10,7 +10,7 @@ public class Spawner : MonoBehaviour{
     
     void Start(){
         enemyAmount = 0;
-        InvokeRepeating("Spawn", 1, 2);
+        InvokeRepeating("Spawn", 10, 2);
     }
     
     

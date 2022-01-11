@@ -19,7 +19,7 @@ public class Character : MonoBehaviour{
 
     
     
-    public void TakeDamage(float damage){
+    public void GetDamage(float damage){
         characterHealth -= damage;
         if (characterHealth <= 0){
             Die();

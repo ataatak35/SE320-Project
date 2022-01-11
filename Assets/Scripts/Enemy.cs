@@ -7,7 +7,6 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour{
     public float enemyHealth = 100f;
     public float attackDamage = 10f;
-    public float movementSpeed;
     public bool isDead;
     public float pursueDistance = 30f;
     public float attackDistance = 2.5f;
@@ -41,8 +40,7 @@ public class Enemy : MonoBehaviour{
         
     }
 
-    public void TakeDamage(float damage){
-        Debug.Log("Take Damage");
+    public void GetDamage(float damage){
         enemyHealth -= damage;
         if (enemyHealth <= 0){
             Die();
@@ -62,7 +60,7 @@ public class Enemy : MonoBehaviour{
         float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
         if (distanceToPlayer < attackDistance){
             navMeshAgent.isStopped = true;
-            animator.SetTrigger("isAttacking");
+            animator.SetBool("isAttacking", true);
         }
         else{
             navMeshAgent.isStopped = false;
@@ -84,6 +82,11 @@ public class Enemy : MonoBehaviour{
     }
 
     public void Damage(){
-        player.GetComponent<Character>().TakeDamage(attackDamage);
+        player.GetComponent<Character>().GetDamage(attackDamage);
+    }
+
+    public void CloseToPlayer(){
+        
+        
     }
 }

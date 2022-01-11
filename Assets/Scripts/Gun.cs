@@ -5,7 +5,7 @@ using UnityEngine;
 public class Gun : MonoBehaviour{
     public float damage = 10f;
     public float range = 100f;
-    public Camera fpsCam;
+    public Camera camera;
     public ParticleSystem particleSystem;
     public GameObject impactEffect1;
     public GameObject impactEffect2;
@@ -23,25 +23,23 @@ public class Gun : MonoBehaviour{
 
     public void Shoot(){    
         particleSystem.Play();
-        RaycastHit hit;
-        if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range)){
-            Debug.Log(hit.transform.name);
+        RaycastHit rayHit;
+        if (Physics.Raycast(camera.transform.position, camera.transform.forward, out rayHit, range)){
+            
 
             Enemy enemy = new Enemy();
-            if (hit.transform.name == "Root"){
-                 enemy = hit.transform.parent.GetComponent<Enemy>();
-                 GameObject impact2 = Instantiate(impactEffect2, hit.point, Quaternion.LookRotation(hit.normal));
+            if (rayHit.transform.name == "Root"){
+                 enemy = rayHit.transform.parent.GetComponent<Enemy>();
+                 GameObject impact2 = Instantiate(impactEffect2, rayHit.point, Quaternion.LookRotation(rayHit.normal));
                  Destroy(impact2, 2f);
-            }
-            else{
-                 enemy = hit.transform.GetComponent<Enemy>();
+                 
             }
             
+            
             if (enemy != null){
-                enemy.TakeDamage(damage);
+                enemy.GetDamage(damage);
             }
-
-            GameObject impact1 = Instantiate(impactEffect1, hit.point, Quaternion.LookRotation(hit.normal));
+            GameObject impact1 = Instantiate(impactEffect1, rayHit.point, Quaternion.LookRotation(rayHit.normal));
             Destroy(impact1, 2f);
         }
     }
