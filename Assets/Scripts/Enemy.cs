@@ -15,16 +15,17 @@ public class Enemy : MonoBehaviour{
     private GameObject player;
     private MeshCollider meshCollider;
     private Rigidbody rigidbody;
+    public int deadCount;
+    public bool isAttacking;
     
-
     void Start(){
         isDead = false;
         animator = gameObject.GetComponent<Animator>();
         navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
         meshCollider = gameObject.transform.GetChild(1).GetComponent<MeshCollider>();
         rigidbody = gameObject.transform.GetChild(1).GetComponent<Rigidbody>();
-        
         player = GameObject.Find("Player");
+        
     }
 
     void Update()
@@ -37,6 +38,8 @@ public class Enemy : MonoBehaviour{
             GoToPlayer();
             Attack();    
         }
+
+        
         
     }
 
@@ -44,6 +47,7 @@ public class Enemy : MonoBehaviour{
         enemyHealth -= damage;
         if (enemyHealth <= 0){
             Die();
+            Invoke("DecreaseZombieAmount", 1);
         }
     }
 
@@ -68,25 +72,27 @@ public class Enemy : MonoBehaviour{
         }
     }
 
+    public void DecreaseZombieAmount(){
+        GameManager.instance.zombieAmount--;
+    }
+
     public void GoToPlayer(){
         float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-        if (distanceToPlayer < pursueDistance){
+        if (GameManager.instance.isCreating || distanceToPlayer < pursueDistance){
             navMeshAgent.isStopped = false;
+            navMeshAgent.speed = 5f;
             navMeshAgent.SetDestination(player.transform.position);
             animator.SetBool("isAware", true);
         }
-        else{
-            navMeshAgent.isStopped = true;
-            animator.SetBool("isAware", false);
-        }
     }
-
+    
     public void Damage(){
         player.GetComponent<Character>().GetDamage(attackDamage);
     }
 
-    public void CloseToPlayer(){
-        
-        
+    public IEnumerator wait(){
+        navMeshAgent.isStopped = true;
+        yield return new WaitForSeconds(5f);
+        navMeshAgent.isStopped = false;
     }
 }

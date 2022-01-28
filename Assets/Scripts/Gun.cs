@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Gun : MonoBehaviour{
@@ -9,38 +11,55 @@ public class Gun : MonoBehaviour{
     public ParticleSystem particleSystem;
     public GameObject impactEffect1;
     public GameObject impactEffect2;
+    private int ammo = 40;
+    public bool isAmmo;
+    public TextMeshProUGUI ammoText;
     void Start(){
-        
+        isAmmo = false;
     }
-
     
-    void Update()
-    {
+    void Update(){
+        
+        
         if (Input.GetButtonDown("Fire1")){
             Shoot();
         }
+
+        if (isAmmo){
+            GetAmmo();
+        }
+        ammoText.text = ammo.ToString();
     }
 
-    public void Shoot(){    
-        particleSystem.Play();
-        RaycastHit rayHit;
-        if (Physics.Raycast(camera.transform.position, camera.transform.forward, out rayHit, range)){
-            
-
-            Enemy enemy = new Enemy();
-            if (rayHit.transform.name == "Root"){
-                 enemy = rayHit.transform.parent.GetComponent<Enemy>();
-                 GameObject impact2 = Instantiate(impactEffect2, rayHit.point, Quaternion.LookRotation(rayHit.normal));
-                 Destroy(impact2, 2f);
-                 
+    public void Shoot(){
+        if (ammo > 0){
+            particleSystem.Play();
+            ammo--;
+            RaycastHit rayHit;
+            if (Physics.Raycast(camera.transform.position, camera.transform.forward, out rayHit, range)){
+                Enemy enemy = new Enemy();
+                if (rayHit.transform.name == "Root"){
+                    enemy = rayHit.transform.parent.GetComponent<Enemy>();
+                    GameObject impact2 = Instantiate(impactEffect2, rayHit.point, Quaternion.LookRotation(rayHit.normal));
+                    Destroy(impact2, 2f);
+                }
+                else{
+                    GameObject impact1 = Instantiate(impactEffect1, rayHit.point, Quaternion.LookRotation(rayHit.normal));
+                    Destroy(impact1, 2f);
+                }
+                if (enemy != null){
+                    enemy.GetDamage(damage);
+                }
+                
             }
-            
-            
-            if (enemy != null){
-                enemy.GetDamage(damage);
-            }
-            GameObject impact1 = Instantiate(impactEffect1, rayHit.point, Quaternion.LookRotation(rayHit.normal));
-            Destroy(impact1, 2f);
         }
     }
+
+    public void GetAmmo(){
+        ammo += 10;
+        isAmmo = false;
+        Debug.Log("GetAmmo");
+    }
+
+    
 }

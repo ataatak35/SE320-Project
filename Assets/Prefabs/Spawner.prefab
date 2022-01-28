@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -7512073488256311677}
   m_Layer: 0
   m_Name: Spawner
-  m_TagString: Untagged
+  m_TagString: Spawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58,6 +58,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 1321578125928574589, guid: 0f0ab51f94675ba4fa937c62a774f2bf, type: 3}
-  enemyAmount: 0
-  maxEnemyAmount: 10
+  createdEnemyAmount: 0
   isCreating: 0

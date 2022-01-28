@@ -6,18 +6,18 @@ using UnityEngine;
 public class Character : MonoBehaviour{
     public float characterHealth = 100;
     public bool isDead;
-    public GameObject endGameCanvas;
     public TextMeshProUGUI  healthText;
+    
     void Start(){
         isDead = false;
     }
-
     
     void Update(){
         healthText.text = characterHealth.ToString();
+        if (characterHealth <= 0){
+            Die();
+        }
     }
-
-    
     
     public void GetDamage(float damage){
         characterHealth -= damage;
@@ -28,7 +28,15 @@ public class Character : MonoBehaviour{
 
     public void Die(){
         isDead = true;
-        Time.timeScale = 0;
-        endGameCanvas.SetActive(true);
+        GameManager.instance.EndGame();
+    }
+
+    private void OnTriggerEnter(Collider other){
+        Debug.Log("1");
+        if (other.gameObject.name == "FinishTrigger"){
+            GameManager.instance.FinishGame();
+        }
+        
+        
     }
 }

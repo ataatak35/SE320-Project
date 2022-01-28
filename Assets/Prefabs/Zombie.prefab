@@ -364,7 +364,7 @@ GameObject:
   - component: {fileID: 1321578125928574588}
   m_Layer: 0
   m_Name: Zombie
-  m_TagString: Untagged
+  m_TagString: Zombie
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -376,7 +376,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1321578125928574589}
-  m_LocalRotation: {x: -0, y: 0.9994722, z: -0, w: -0.032487188}
+  m_LocalRotation: {x: 0, y: 0.99947226, z: -0, w: -0.032483518}
   m_LocalPosition: {x: 255.19, y: 0.97, z: 398.76}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -418,10 +418,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyHealth: 50
   attackDamage: 20
-  movementSpeed: 0
   isDead: 0
   pursueDistance: 30
   attackDistance: 2.5
+  deadCount: 0
 --- !u!195 &1321578125928574588
 NavMeshAgent:
   m_ObjectHideFlags: 0
